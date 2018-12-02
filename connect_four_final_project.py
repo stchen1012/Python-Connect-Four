@@ -1,7 +1,6 @@
 import turtle
 
 myTurtle = turtle.Turtle('turtle')
-#myTurtle.hideturtle()
 myTurtle.speed(0)
 tTurtle = turtle.Turtle()
 winTurtle = turtle.Turtle()
@@ -54,6 +53,17 @@ def player_two_drop():
             break
     print_grid()
 
+def win_graphics_pone():
+    winTurtle.penup()
+    winTurtle.setposition(-250,250)
+    winTurtle.pendown()
+    winTurtle.write(player_one_name + " wins!", font=("Cambria", 24, "bold"))
+
+def win_graphics_ptwo():
+    winTurtle.penup()
+    winTurtle.setposition(-250,250)
+    winTurtle.pendown()
+    winTurtle.write(player_two_name + " wins!", font=("Cambria", 24, "bold"))
 
 def check_vertical(x): #x will be player input
     global game_over
@@ -63,21 +73,14 @@ def check_vertical(x): #x will be player input
     for row in range(5,-1,-1):
          if grid[row][x] != 0:
              y.append(grid[row][x])
-             #print(y)
              if y[-4:] == [1,1,1,1]:
                  print(player_one_name + " wins!")
-                 winTurtle.penup()
-                 winTurtle.setposition(-290,250)
-                 winTurtle.pendown()
-                 winTurtle.write(player_one_name + " wins!", font=("Arial", 24, "bold"))
+                 win_graphics_pone()
                  game_over = True
                  break
              elif y[-4:] == [2,2,2,2]:
                  print(player_two_name + " wins!")
-                 winTurtle.penup()
-                 winTurtle.setposition(-290,250)
-                 winTurtle.pendown()
-                 winTurtle.write(player_two_name + " wins!", font=("Arial", 24, "bold"))
+                 win_graphics_ptwo()
                  game_over = True
                  break
 
@@ -90,54 +93,41 @@ def check_horizontal(x): #x will be player input
     for item in grid[player_coordinates[0]]:
         #print("test" + str(grid[player_coordinates[0]]))
         y.append(item)
-        #print(y)
         if y[-4:] == [1,1,1,1]:
             print(player_one_name + " wins!")
-            winTurtle.penup()
-            winTurtle.setposition(-290,250)
-            winTurtle.pendown()
-            winTurtle.write(player_one_name + " wins!", font=("Arial", 24, "bold"))
+            win_graphics_pone()
             game_over = True
             break
         elif y[-4:] == [2,2,2,2]:
             print(player_two_name + " wins!")
-            winTurtle.penup()
-            winTurtle.setposition(-290,250)
-            winTurtle.pendown()
-            winTurtle.write(player_two_name + " wins!", font=("Arial", 24, "bold"))
+            win_graphics_ptwo()
             game_over = True
             break
 
-def check_diagonal(): ######################VICTOR INPUT FUNCTION
+
+def check_diagonal(): 
     #Check downward angle diag for rows 0-3 and starting at column 0
     global game_over
-    for loops in range(1): #Victor added this to the top b/c of redundant, KEEP IT
+    for loops in range(1): #keep this for loop
         for row in range(3):
             winnerlist = []
             j = row
             i = 0
             while i<=6 and j<=5:
                 winnerlist.append(grid[j][i])
-                i+=1
-                j+=1
-            if winnerlist[-4:] == [1,1,1,1]:
-                print(player_one_name + " wins!")
-                winTurtle.penup()
-                winTurtle.setposition(-290,250)
-                winTurtle.pendown()
-                winTurtle.write(player_one_name + " wins!", font=("Arial", 24, "bold"))
-                game_over = True
-                #return 0
-                break
-            if winnerlist[-4:] == [2,2,2,2]:
-                print(player_two_name + " wins!")
-                winTurtle.penup()
-                winTurtle.setposition(-290,250)
-                winTurtle.pendown()
-                winTurtle.write(player_two_name + " wins!", font=("Arial", 24, "bold"))
-                game_over = True
-                #return 0
-                break
+                if winnerlist[-4:] == [1,1,1,1]:
+                    print(player_one_name + " wins!")
+                    win_graphics_pone()
+                    game_over = True
+                    return 0
+                if winnerlist[-4:] == [2,2,2,2]:
+                    print(player_two_name + " wins!")
+                    win_graphics_ptwo()
+                    game_over = True
+                    return 0
+                else:
+                    i+=1
+                    j+=1
                 
         for column in range(4):
             winnerlist = []
@@ -145,26 +135,23 @@ def check_diagonal(): ######################VICTOR INPUT FUNCTION
             i = column
             while i<=6 and j<=5:
                 winnerlist.append(grid[j][i])
-                i+=1
-                j+=1
-            if winnerlist[-4:] == [1,1,1,1]:
-                print(player_one_name +" wins!")
-                winTurtle.penup()
-                winTurtle.setposition(-290,250)
-                winTurtle.pendown()
-                winTurtle.write(player_one_name + " wins!", font=("Arial", 24, "bold"))
-                game_over = True
-                #return 0
-                break
-            if winnerlist[-4:] == [2,2,2,2]:
-                print(player_two_name + " wins!")
-                winTurtle.penup()
-                winTurtle.setposition(-290,250)
-                winTurtle.pendown()
-                winTurtle.write(player_two_name + " wins!", font=("Arial", 24, "bold"))
-                game_over = True
-                #return 0
-                break
+                if winnerlist[-4:] == [1,1,1,1]:
+                    print(player_one_name +" wins!")
+                    win_graphics_pone()
+                    game_over = True
+                    return 0
+                if winnerlist[-4:] == [2,2,2,2]:
+                    print(player_two_name + " wins!")
+                    winTurtle.penup()
+                    winTurtle.setposition(-290,250)
+                    winTurtle.pendown()
+                    winTurtle.write(player_two_name + " wins!", font=("Arial", 24, "bold"))
+                    game_over = True
+                    return 0
+                else:
+                    i+=1
+                    j+=1
+
 
         for row in range(3):
             winnerlist = []
@@ -172,26 +159,20 @@ def check_diagonal(): ######################VICTOR INPUT FUNCTION
             i = 6
             while i>=0 and j<=5:
                 winnerlist.append(grid[j][i])
-                i-=1
-                j+=1
-            if winnerlist[-4:] == [1,1,1,1]:
-                print(player_one_name +" wins!")
-                winTurtle.penup()
-                winTurtle.setposition(-290,250)
-                winTurtle.pendown()
-                winTurtle.write(player_one_name + " wins!", font=("Arial", 24, "bold"))
-                game_over = True
-                #return 0
-                break
-            if winnerlist[-4:] == [2,2,2,2]:
-                print(player_two_name + " wins!")
-                winTurtle.penup()
-                winTurtle.setposition(-290,250)
-                winTurtle.pendown()
-                winTurtle.write(player_two_name + " wins!", font=("Arial", 24, "bold"))
-                game_over = True
-                #return 0
-                break
+                if winnerlist[-4:] == [1,1,1,1]:
+                    print(player_one_name +" wins!")
+                    win_graphics_pone()
+                    print(winnerlist)
+                    game_over = True
+                    return 0
+                if winnerlist[-4:] == [2,2,2,2]:
+                    print(player_two_name + " wins!")
+                    win_graphics_ptwo()
+                    game_over = True
+                    return 0
+                else:
+                    i-=1
+                    j+=1
 
         for column in range(6,2,-1):
             winnerlist = []
@@ -199,26 +180,20 @@ def check_diagonal(): ######################VICTOR INPUT FUNCTION
             i = column
             while i>=0 and j<=5:
                 winnerlist.append(grid[j][i])
-                i-=1
-                j+=1
-            if winnerlist[-4:] == [1,1,1,1]:
-                print(player_one_name + " wins!")
-                winTurtle.penup()
-                winTurtle.setposition(-290,250)
-                winTurtle.pendown()
-                winTurtle.write(player_one_name + " wins!", font=("Arial", 24, "bold"))
-                game_over = True
-                #return 0
-                break
-            if winnerlist[-4:] == [2,2,2,2]:
-                print(player_two_name + " wins!")
-                winTurtle.penup()
-                winTurtle.setposition(-290,250)
-                winTurtle.pendown()
-                winTurtle.write(player_two_name + " wins!", font=("Arial", 24, "bold"))
-                game_over = True
-                #return 0
-                break
+                if winnerlist[-4:] == [1,1,1,1]:
+                    print(player_one_name + " wins!")
+                    win_graphics_pone()
+                    game_over = True
+                    return 0
+                if winnerlist[-4:] == [2,2,2,2]:
+                    print(player_two_name + " wins!")
+                    win_graphics_ptwo()
+                    game_over = True
+                    return 0
+                else:
+                    i-=1
+                    j+=1
+
 
 turtle.setup(600,600)
 wn = turtle.Screen()
@@ -227,11 +202,10 @@ wn.title("Let's Play Connect Four!")
 tTurtle.penup()
 tTurtle.color("darkgreen")
 tTurtle.fillcolor("darkgreen")
-tTurtle.setposition(-250,250)
+tTurtle.setposition(-250,230)
 tTurtle.begin_fill()
 tTurtle.pendown()
 tTurtle.forward(470)
-#print(turtle.pos())
 tTurtle.right(90)
 tTurtle.forward(410)
 tTurtle.right(90)
@@ -241,9 +215,8 @@ tTurtle.forward(410)
 tTurtle.end_fill()
 
 def drawGameBoard():
-    #heightCount = 0
     for row in range(0,6):
-        y = 175 + row * -65
+        y = 155 + row * -65
         for column in range(6,-1,-1):
             x = -210 + column * 65
             myTurtle.penup()
@@ -256,7 +229,6 @@ def drawGameBoard():
                 myTurtle.fillcolor('yellow')
             else:
                 myTurtle.fillcolor('white')
-            #myTurtle.pencolor('white')
             myTurtle.circle(30)
             myTurtle.end_fill()
 
@@ -264,7 +236,7 @@ def updateBoard():
     row = player_coordinates[0]
     column = player_coordinates[1]
     x = -210 + player_coordinates[1]*65
-    y = 175 + player_coordinates[0] * -65
+    y = 155 + player_coordinates[0] * -65
     myTurtle.penup()
     myTurtle.setposition(x,y)
     myTurtle.pendown()
@@ -275,7 +247,6 @@ def updateBoard():
         myTurtle.fillcolor('yellow')
     else:
         myTurtle.fillcolor('white')
-    #myTurtle.pencolor('white')
     myTurtle.circle(30)
     myTurtle.end_fill()
 
