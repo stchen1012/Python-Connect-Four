@@ -79,4 +79,3 @@ while True:
 
     
 #type out 3 if statments - check for positions i+1 , etc
-#graphics if you're feeling real fancy
