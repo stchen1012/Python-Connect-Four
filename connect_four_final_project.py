@@ -65,6 +65,15 @@ def win_graphics_ptwo():
     winTurtle.pendown()
     winTurtle.write(player_two_name + " wins!", font=("Cambria", 24, "bold"))
 
+def tie_check():
+    global game_over
+    for row in grid:
+        for item in row:
+            if item == 0:
+                return
+    print("It's a tie!")
+    game_over = True
+        
 def check_vertical(x): #x will be player input
     global game_over
     if game_over == True:
@@ -104,7 +113,6 @@ def check_horizontal(x): #x will be player input
             game_over = True
             break
 
-
 def check_diagonal(): 
     #Check downward angle diag for rows 0-3 and starting at column 0
     global game_over
@@ -142,16 +150,12 @@ def check_diagonal():
                     return 0
                 if winnerlist[-4:] == [2,2,2,2]:
                     print(player_two_name + " wins!")
-                    winTurtle.penup()
-                    winTurtle.setposition(-290,250)
-                    winTurtle.pendown()
-                    winTurtle.write(player_two_name + " wins!", font=("Arial", 24, "bold"))
+                    win_graphics_ptwo()
                     game_over = True
                     return 0
                 else:
                     i+=1
                     j+=1
-
 
         for row in range(3):
             winnerlist = []
@@ -193,7 +197,6 @@ def check_diagonal():
                 else:
                     i-=1
                     j+=1
-
 
 turtle.setup(600,600)
 wn = turtle.Screen()
@@ -250,7 +253,6 @@ def updateBoard():
     myTurtle.circle(30)
     myTurtle.end_fill()
 
-
 def inputNumber(name):
   while True:
     try:
@@ -260,6 +262,8 @@ def inputNumber(name):
        continue
     if userInput not in range(1, 8):
         print("Error: Please only enter numbers between 1-7")
+    elif row_1[userInput - 1] != 0:
+        print("Error: Please select another column")
     else:
         return userInput
         break
@@ -287,6 +291,7 @@ while game_over != True:
         check_vertical(player_two_inpt - 1)
         check_horizontal(player_two_inpt - 1)
         check_diagonal()
+    tie_check()
 
 turtle.exitonclick()
 
