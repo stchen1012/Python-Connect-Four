@@ -5,6 +5,8 @@ myTurtle.speed(0)
 tTurtle = turtle.Turtle()
 winTurtle = turtle.Turtle()
 winTurtle.hideturtle()
+labelTurtle = turtle.Turtle()
+labelTurtle.hideturtle()
 #grid = y,x - applicable for all Python matrices
 
 print("Let's play Connect Four!")
@@ -65,6 +67,12 @@ def win_graphics_ptwo():
     winTurtle.pendown()
     winTurtle.write(player_two_name + " wins!", font=("Cambria", 24, "bold"))
 
+def win_graphics_tie():
+    winTurtle.penup()
+    winTurtle.setposition(-250,250)
+    winTurtle.pendown()
+    winTurtle.write("It's a tie!", font=("Cambria", 24, "bold"))
+
 def tie_check():
     global game_over
     for row in grid:
@@ -72,6 +80,7 @@ def tie_check():
             if item == 0:
                 return
     print("It's a tie!")
+    win_graphics_tie()
     game_over = True
         
 def check_vertical(x): #x will be player input
@@ -216,6 +225,11 @@ tTurtle.forward(470)
 tTurtle.right(90)
 tTurtle.forward(410)
 tTurtle.end_fill()
+labelTurtle.penup()
+labelTurtle.color("black")
+labelTurtle.setposition(-250,-230)
+labelTurtle.write("       1         2          3          4         5         6          7", font=("Cambria", 24, "bold"))
+labelTurtle.pendown()
 
 def drawGameBoard():
     for row in range(0,6):
